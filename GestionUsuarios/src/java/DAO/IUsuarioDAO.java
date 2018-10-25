@@ -5,6 +5,8 @@
  */
 package DAO;
 
+import Dominio.Abonado;
+import Dominio.Empleado;
 import javax.ejb.Local;
 
 /**
@@ -12,6 +14,10 @@ import javax.ejb.Local;
  * @author Mario Torbado
  */
 @Local
-public interface NewSessionBeanLocal {
+public interface IUsuarioDAO {
+
+    public Abonado findAbonadoByLogin(String login);
+
+    public Empleado findEmpleadoByLogin(String login);
     
 }

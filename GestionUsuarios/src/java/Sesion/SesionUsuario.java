@@ -5,9 +5,11 @@
  */
 package Sesion;
 
+import DAO.IUsuarioDAO;
 import Dominio.Abonado;
 import Dominio.Empleado;
 import java.util.List;
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -19,38 +21,36 @@ import javax.persistence.TypedQuery;
  */
 @Stateless
 public class SesionUsuario implements SesionUsuarioLocal {
-    //TODO sacar esto a DAO
-    EntityManagerFactory emf = Persistence.createEntityManagerFactory("");
-    EntityManager em = emf.createEntityManager();
+
+    @EJB
+    private IUsuarioDAO usuarioDAO;
+
     
     
     
     /**
-     * 
+     * Dado un login, nos devuelve true si está abonado en el sistema.
      * @param login
      * @return 
      */
+    @Override
     public boolean isAbonado(String login){
-         //TODO sacar esto a DAO
-        TypedQuery<Abonado> consultaAbonado = em.createNamedQuery("Abonado.findByAbLogin", Abonado.class);
-        consultaAbonado.setParameter("abLogin", login);
-        List<Abonado> l = consultaAbonado.getResultList();
-        return !l.isEmpty();
 
+        Abonado a = usuarioDAO.findAbonadoByLogin(login);
+        if (a!=null) return true;
+        return false;
     }
     
     /**
-     * 
+     *  Dado un login, nos devuelve true si está abonado en el sistema.
      * @param login
      * @return 
      */
     public boolean isEmpleado(String login){
-        //TODO sacar esto a DAO
-        TypedQuery<Empleado> consultaEmpleado = em.createNamedQuery("Empleado.findByEmLogin", Empleado.class);
-        consultaEmpleado.setParameter("emLogin", login);
-        List<Empleado> l = consultaEmpleado.getResultList();
-        return !l.isEmpty();
-        
+
+        Empleado e = usuarioDAO.findEmpleadoByLogin(login);
+        if (e!=null) return true;
+        return false;
     }
     
     /**
