@@ -7,6 +7,7 @@ package DAO;
 
 import Dominio.Abonado;
 import Dominio.Empleado;
+import Dominio.Persona;
 import javax.ejb.Local;
 
 /**
@@ -19,5 +20,6 @@ public interface IUsuarioDAO {
     public Abonado findAbonadoByLogin(String login);
 
     public Empleado findEmpleadoByLogin(String login);
+
     
 }

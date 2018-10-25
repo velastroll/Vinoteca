@@ -7,8 +7,10 @@ package DAO;
 
 import Dominio.Abonado;
 import Dominio.Empleado;
+import Dominio.Persona;
 import java.util.List;
 import javax.ejb.Stateless;
+import javax.persistence.EntityExistsException;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -45,6 +47,17 @@ public class UsuarioDAO implements IUsuarioDAO {
         consultaEmpleado.setParameter("emLogin", login);
         List<Empleado> empleado = consultaEmpleado.getResultList();
         return empleado.get(0);
+    }
+
+    
+    public boolean create(Abonado abonado){
+        em.persist(abonado);
+        return true;
+    }
+    
+    public boolean delete(Abonado abonado){
+        em.remove(abonado);
+        return true;
     }
 
 }
