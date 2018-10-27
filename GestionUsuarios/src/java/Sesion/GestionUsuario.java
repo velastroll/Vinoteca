@@ -18,20 +18,20 @@ import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 
 /**
- *
+ * 
+ * @author Alvaro Velasco
  * @author Mario Torbado
  */
 @Stateless
-public class SesionUsuario implements SesionUsuarioLocal {
+public class GestionUsuario implements GestionUsuarioLocal {
 
     @EJB
     private IUsuarioDAO usuarioDAO;
 
     /**
-     * Dado un login, nos devuelve true si está abonado en el sistema.
-     *
+     * Checks if there is an Abonado with the given login in the system database.
      * @param login
-     * @return
+     * @return true if it exists, false otherwise.
      */
     @Override
     public boolean isAbonado(String login) {
@@ -44,10 +44,9 @@ public class SesionUsuario implements SesionUsuarioLocal {
     }
 
     /**
-     * Dado un login, nos devuelve true si está abonado en el sistema.
-     *
+     * Checks if there is an Empleado with the given login in the system database.
      * @param login
-     * @return
+     * @return true if it exists, false otherwise.
      */
     public boolean isEmpleado(String login) {
 
@@ -59,12 +58,12 @@ public class SesionUsuario implements SesionUsuarioLocal {
     }
 
     /**
-     * Método que comprueba si los datos de acceso son correctos.
+     * Checks if password is correct for the existing given login and user type.
      *
-     * @param login nombre de usuario
-     * @param psswd contraseña del usuario
-     * @param tipoUser tipo de usuario
-     * @return boolean true si los datos son correctos
+     * @param login
+     * @param psswd
+     * @param tipoUser user type
+     * @return true if user exists and password ok, false otherwise
      */
     public boolean isPsswdOK(String login, String psswd, String tipoUser) {
         if (tipoUser.equals("abonado")) {
@@ -78,9 +77,9 @@ public class SesionUsuario implements SesionUsuarioLocal {
     }
 
     /**
-     * Dado un login, devuelve el DNI correspondiente a esa persona.
+     * Returns user's NIF for the given user's login.
      * @param login
-     * @return
+     * @return user's nif if it exists, empty String otherwise
      */
     public String getNif(String login) {
         Persona p = new Persona();
@@ -93,13 +92,13 @@ public class SesionUsuario implements SesionUsuarioLocal {
     }
 
     /**
-     *
+     * Adds a new Abonado to the system database.
      * @param nif
      * @param nombre
      * @param apellidos
      * @param login
      * @param passwd
-     * @return
+     * @return true if operation successful, false otherwise
      */
     public boolean addAbonado(String nif, String nombre, String apellidos,
             String login, String passwd) {
@@ -119,9 +118,9 @@ public class SesionUsuario implements SesionUsuarioLocal {
     }
 
     /**
-     *
+     * Deletes the corresponding Abonado fot the given NIF from the system database.
      * @param nif
-     * @return
+     * @return true if operation successful, false otherwise
      */
     public boolean delAbonado(String nif) {
         Abonado a = usuarioDAO.findAbonadoByLogin(nif);

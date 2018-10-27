@@ -18,22 +18,19 @@ import javax.persistence.TypedQuery;
 
 /**
  *
+ * @author Alvaro Velasco
  * @author Mario Torbado
  */
 @Stateless
 public class UsuarioDAO implements IUsuarioDAO {
-
-    //TODO sacar esto a DAO
+    
     EntityManagerFactory emf = Persistence.createEntityManagerFactory("");
     EntityManager em = emf.createEntityManager();
-    // Add business logic below. (Right-click in editor and choose
-    // "Insert Code > Add Business Method")
 
     /**
-     * Dado un login, nos devuelve una entity de tipo Abogado, que es null si no
-     * está en el sistema.
-     * @param login
-     * @return a: Abonado
+     * Returns an Abonado instance from the database given its login.
+     * @param login login of the Abonado.
+     * @return corresponding Abonado instance from the database (if exists, null otherwise).
      */
     public Abonado findAbonadoByLogin(String login) {
         TypedQuery<Abonado> consultaAbonado = em.createNamedQuery("Abonado.findByAbLogin", Abonado.class);
@@ -42,6 +39,11 @@ public class UsuarioDAO implements IUsuarioDAO {
         return abonado.get(0);
     }
     
+    /**
+     * Retuns an  Empleado instance from the database given its login.
+     * @param login login of the Empleado.
+     * @return corresponding Empleado instance from the database (if exists, null otherwise).
+     */
     public Empleado findEmpleadoByLogin(String login) {
         TypedQuery<Empleado> consultaEmpleado = em.createNamedQuery("Empleado.findByEmLogin", Empleado.class);
         consultaEmpleado.setParameter("emLogin", login);
@@ -49,15 +51,35 @@ public class UsuarioDAO implements IUsuarioDAO {
         return empleado.get(0);
     }
 
-    
+    /**
+     * Creates a new table entry for the given Abonado instance in the database.
+     * @param abonado Abonado instance to record into the database.
+     * @return true if operation succesful, false otherwise.
+     */
     public boolean create(Abonado abonado){
-        em.persist(abonado);
-        return true;
+        try{
+            em.persist(abonado);
+            return true;
+        }
+        catch(Exception e){
+            return false;
+        }
     }
     
+    /**
+     * Deletes the corresponding table entry for the given Abonado instance in
+     * the database.
+     * @param abonado
+     * @return true if operation succesful, false otherwise.
+     */
     public boolean delete(Abonado abonado){
-        em.remove(abonado);
-        return true;
+        try{
+            em.remove(abonado);
+            return true;
+        }
+        catch(Exception e){
+            return false;
+        }
     }
 
 }

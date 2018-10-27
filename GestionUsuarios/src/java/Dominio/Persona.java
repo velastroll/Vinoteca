@@ -20,7 +20,8 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 /**
- *
+ * Persona Entity Class from USUARIO database.
+ * @author Alvaro Velasco
  * @author Mario Torbado
  */
 @Entity
@@ -50,49 +51,96 @@ public class Persona implements Serializable {
     @OneToMany(mappedBy = "abNif")
     private Collection<Abonado> abonadoCollection;
 
+    /**
+     * Empty constructor.
+     */
     public Persona() {
     }
 
+    /**
+     * Regular constructor.
+     * @param nif NIF for new Persona instance
+     */
     public Persona(String nif) {
         this.nif = nif;
     }
 
+    /**
+     * Returns Persona's NIF.
+     * @return nif
+     */
     public String getNif() {
         return nif;
     }
 
+    /**
+     * Sets Persona's new NIF.
+     * @param nif 
+     */
     public void setNif(String nif) {
         this.nif = nif;
     }
 
+    /**
+     * Returns Persona's name.
+     * @return nombre
+     */
     public String getNombre() {
         return nombre;
     }
 
+    /**
+     * Sets Persona's new name.
+     * @param nombre 
+     */
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
 
+    /**
+     * Returns Persona's surnames.
+     * @return apellidos
+     */
     public String getApellidos() {
         return apellidos;
     }
 
+    /**
+     * Sets Persona's new surnames.
+     * @param apellidos 
+     */
     public void setApellidos(String apellidos) {
         this.apellidos = apellidos;
     }
 
+    /**
+     * Returns the Collection of Empleado from the database.
+     * @return empleadoCollection
+     */
     public Collection<Empleado> getEmpleadoCollection() {
         return empleadoCollection;
     }
 
+    /**
+     * Sets a new Collection of Empleado.
+     * @param empleadoCollection 
+     */
     public void setEmpleadoCollection(Collection<Empleado> empleadoCollection) {
         this.empleadoCollection = empleadoCollection;
     }
 
+    /**
+     * Returns the Collection of Abonado from the database.
+     * @return abonadoCollection
+     */
     public Collection<Abonado> getAbonadoCollection() {
         return abonadoCollection;
     }
 
+    /**
+     * Sets a new Collection of Abonado
+     * @param abonadoCollection 
+     */
     public void setAbonadoCollection(Collection<Abonado> abonadoCollection) {
         this.abonadoCollection = abonadoCollection;
     }

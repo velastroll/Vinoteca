@@ -19,7 +19,8 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 /**
- *
+ * Abonado Entity Class from USUARIO database.
+ * @author Álvaro Velasco
  * @author Mario Torbado
  */
 @Entity
@@ -43,34 +44,65 @@ public class Abonado implements Serializable {
     @JoinColumn(name = "AB_NIF", referencedColumnName = "NIF")
     @ManyToOne
     private Persona abNif;
-
+    
+    /**
+     * Empty constructor.
+     */
     public Abonado() {
     }
 
+    /**
+     * Regular constructor.
+     * @param abLogin login for new Abonado instance
+     */
     public Abonado(String abLogin) {
         this.abLogin = abLogin;
     }
-
+    
+    /**
+     * Returns Abonado's login.
+     * @return abLogin
+     */
     public String getAbLogin() {
         return abLogin;
     }
-
+    
+    /**
+     * Sets Abonado's new login.
+     * @param abLogin 
+     */
     public void setAbLogin(String abLogin) {
         this.abLogin = abLogin;
     }
 
+    /**
+     * Returns Abonado's password.
+     * @return abPasswd
+     */
     public String getAbPasswd() {
         return abPasswd;
     }
 
+    /**
+     * Sets Abonado's new password.
+     * @param abPasswd 
+     */
     public void setAbPasswd(String abPasswd) {
         this.abPasswd = abPasswd;
     }
 
+    /**
+     * Returns the Persona instance corresponding to the Abonado.
+     * @return abNif (Persona)
+     */
     public Persona getAbNif() {
         return abNif;
     }
 
+    /**
+     * Sets the corresponding Persona instance to the Abonado.
+     * @param abNif (Persona)
+     */
     public void setAbNif(Persona abNif) {
         this.abNif = abNif;
     }

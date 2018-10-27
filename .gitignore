@@ -1,1 +1,8 @@
+<<<<<<< Updated upstream
 .DS_Store
+=======
+/nbproject/private/
+>>>>>>> Stashed changes
+/GestionUsuarios/nbproject/private/
+/GestionUsuarios/build/
+/GestionUsuarios/dist/

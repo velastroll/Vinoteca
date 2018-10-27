@@ -20,6 +20,7 @@ import javax.validation.constraints.Size;
 
 /**
  *
+ * @author Alvaro Velasco
  * @author Mario Torbado
  */
 @Entity
@@ -47,41 +48,80 @@ public class Empleado implements Serializable {
     @ManyToOne(optional = false)
     private Persona emNif;
 
+    /**
+     * Empty constructor.
+     */
     public Empleado() {
     }
 
+    /**
+     * Regular constructor.
+     * @param emLogin login for the new Empleado instance
+     */
     public Empleado(String emLogin) {
         this.emLogin = emLogin;
     }
 
+    /**
+     * Returns Empleado's login.
+     * @return emLogin
+     */
     public String getEmLogin() {
         return emLogin;
     }
 
+    /**
+     * Sets Empleado's new login.
+     * @param emLogin 
+     */
     public void setEmLogin(String emLogin) {
         this.emLogin = emLogin;
     }
 
+    /**
+     * Returns Empleado's password.
+     * @return emPasswd
+     */
     public String getEmPasswd() {
         return emPasswd;
     }
 
+    /**
+     * Sets Empleado's new password.
+     * @param emPasswd 
+     */
     public void setEmPasswd(String emPasswd) {
         this.emPasswd = emPasswd;
     }
 
+    /**
+     * Returns true if Empleado is modifiable, false otherwise.
+     * @return puedeModificar
+     */
     public Boolean getPuedeModificar() {
         return puedeModificar;
     }
 
+    /**
+     * Sets Empleado's modicability
+     * @param puedeModificar 
+     */
     public void setPuedeModificar(Boolean puedeModificar) {
         this.puedeModificar = puedeModificar;
     }
 
+    /**
+     *  Returns the Persona instance corresponding to the Empleado.
+     * @return emNif (Persona)
+     */
     public Persona getEmNif() {
         return emNif;
     }
 
+    /**
+     * Sets the corresponding Persona instance to the Empleado.
+     * @param emNif (Persona)
+     */
     public void setEmNif(Persona emNif) {
         this.emNif = emNif;
     }

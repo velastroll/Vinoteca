@@ -12,7 +12,7 @@ import javax.ejb.Local;
  * @author Mario Torbado
  */
 @Local
-public interface SesionUsuarioLocal {
+public interface GestionUsuarioLocal {
     /**
      * 
      * @param login
