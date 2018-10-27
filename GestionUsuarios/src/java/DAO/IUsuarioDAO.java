@@ -21,5 +21,9 @@ public interface IUsuarioDAO {
 
     public Empleado findEmpleadoByLogin(String login);
 
+    public boolean create(Abonado abonado);
+
+    public boolean delete(Abonado abonado);
+
     
 }

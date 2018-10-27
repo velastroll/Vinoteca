@@ -124,7 +124,8 @@ public class SesionUsuario implements SesionUsuarioLocal {
      * @return
      */
     public boolean delAbonado(String nif) {
-        return false;
+        Abonado a = usuarioDAO.findAbonadoByLogin(nif);
+        return usuarioDAO.delete(a);
     }
 
 }
