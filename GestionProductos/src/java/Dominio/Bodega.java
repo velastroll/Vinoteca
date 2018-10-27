@@ -6,7 +6,9 @@
 package Dominio;
 
 import java.io.Serializable;
+import java.util.Collection;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -14,15 +16,19 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Mario Torbado
+ * @author Alvaro
  */
 @Entity
 @Table(name = "BODEGA")
+@XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Bodega.findAll", query = "SELECT b FROM Bodega b")
     , @NamedQuery(name = "Bodega.findById", query = "SELECT b FROM Bodega b WHERE b.id = :id")
@@ -46,6 +52,8 @@ public class Bodega implements Serializable {
     @Size(max = 50)
     @Column(name = "DIRECCION")
     private String direccion;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idbodega")
+    private Collection<Vino> vinoCollection;
 
     public Bodega() {
     }
@@ -84,6 +92,15 @@ public class Bodega implements Serializable {
 
     public void setDireccion(String direccion) {
         this.direccion = direccion;
+    }
+
+    @XmlTransient
+    public Collection<Vino> getVinoCollection() {
+        return vinoCollection;
+    }
+
+    public void setVinoCollection(Collection<Vino> vinoCollection) {
+        this.vinoCollection = vinoCollection;
     }
 
     @Override

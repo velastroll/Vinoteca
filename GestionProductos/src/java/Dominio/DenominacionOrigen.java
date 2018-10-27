@@ -19,13 +19,16 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Mario Torbado
+ * @author Alvaro
  */
 @Entity
 @Table(name = "DENOMINACION_ORIGEN")
+@XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "DenominacionOrigen.findAll", query = "SELECT d FROM DenominacionOrigen d")
     , @NamedQuery(name = "DenominacionOrigen.findByDoId", query = "SELECT d FROM DenominacionOrigen d WHERE d.doId = :doId")
@@ -43,6 +46,8 @@ public class DenominacionOrigen implements Serializable {
     private String nombre;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "iddenominacion")
     private Collection<Preferencia> preferenciaCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "iddenominacion")
+    private Collection<Vino> vinoCollection;
 
     public DenominacionOrigen() {
     }
@@ -67,12 +72,22 @@ public class DenominacionOrigen implements Serializable {
         this.nombre = nombre;
     }
 
+    @XmlTransient
     public Collection<Preferencia> getPreferenciaCollection() {
         return preferenciaCollection;
     }
 
     public void setPreferenciaCollection(Collection<Preferencia> preferenciaCollection) {
         this.preferenciaCollection = preferenciaCollection;
+    }
+
+    @XmlTransient
+    public Collection<Vino> getVinoCollection() {
+        return vinoCollection;
+    }
+
+    public void setVinoCollection(Collection<Vino> vinoCollection) {
+        this.vinoCollection = vinoCollection;
     }
 
     @Override

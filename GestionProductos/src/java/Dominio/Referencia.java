@@ -6,22 +6,30 @@
 package Dominio;
 
 import java.io.Serializable;
+import java.util.Collection;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Mario Torbado
+ * @author Alvaro
  */
 @Entity
 @Table(name = "REFERENCIA")
+@XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Referencia.findAll", query = "SELECT r FROM Referencia r")
     , @NamedQuery(name = "Referencia.findByCodigo", query = "SELECT r FROM Referencia r WHERE r.codigo = :codigo")
@@ -43,6 +51,11 @@ public class Referencia implements Serializable {
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "PRECIO")
     private Float precio;
+    @JoinColumn(name = "VINOID", referencedColumnName = "ID")
+    @ManyToOne(optional = false)
+    private Vino vinoid;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "peReferencia")
+    private Collection<Pedido> pedidoCollection;
 
     public Referencia() {
     }
@@ -81,6 +94,23 @@ public class Referencia implements Serializable {
 
     public void setPrecio(Float precio) {
         this.precio = precio;
+    }
+
+    public Vino getVinoid() {
+        return vinoid;
+    }
+
+    public void setVinoid(Vino vinoid) {
+        this.vinoid = vinoid;
+    }
+
+    @XmlTransient
+    public Collection<Pedido> getPedidoCollection() {
+        return pedidoCollection;
+    }
+
+    public void setPedidoCollection(Collection<Pedido> pedidoCollection) {
+        this.pedidoCollection = pedidoCollection;
     }
 
     @Override

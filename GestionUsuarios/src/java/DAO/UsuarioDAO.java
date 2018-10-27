@@ -32,6 +32,7 @@ public class UsuarioDAO implements IUsuarioDAO {
      * @param login login of the Abonado.
      * @return corresponding Abonado instance from the database (if exists, null otherwise).
      */
+    @Override
     public Abonado findAbonadoByLogin(String login) {
         TypedQuery<Abonado> consultaAbonado = em.createNamedQuery("Abonado.findByAbLogin", Abonado.class);
         consultaAbonado.setParameter("abLogin", login);
@@ -44,6 +45,7 @@ public class UsuarioDAO implements IUsuarioDAO {
      * @param login login of the Empleado.
      * @return corresponding Empleado instance from the database (if exists, null otherwise).
      */
+    @Override
     public Empleado findEmpleadoByLogin(String login) {
         TypedQuery<Empleado> consultaEmpleado = em.createNamedQuery("Empleado.findByEmLogin", Empleado.class);
         consultaEmpleado.setParameter("emLogin", login);
@@ -56,6 +58,7 @@ public class UsuarioDAO implements IUsuarioDAO {
      * @param abonado Abonado instance to record into the database.
      * @return true if operation succesful, false otherwise.
      */
+    @Override
     public boolean create(Abonado abonado){
         try{
             em.persist(abonado);
@@ -72,6 +75,7 @@ public class UsuarioDAO implements IUsuarioDAO {
      * @param abonado
      * @return true if operation succesful, false otherwise.
      */
+    @Override
     public boolean delete(Abonado abonado){
         try{
             em.remove(abonado);
