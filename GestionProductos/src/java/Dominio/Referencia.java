@@ -6,26 +6,21 @@
 package Dominio;
 
 import java.io.Serializable;
-import java.util.Collection;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Alvaro
+ * @author Mario Torbado
  */
 @Entity
 @Table(name = "REFERENCIA")
@@ -35,7 +30,8 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Referencia.findByCodigo", query = "SELECT r FROM Referencia r WHERE r.codigo = :codigo")
     , @NamedQuery(name = "Referencia.findByEsporcajas", query = "SELECT r FROM Referencia r WHERE r.esporcajas = :esporcajas")
     , @NamedQuery(name = "Referencia.findByContenido", query = "SELECT r FROM Referencia r WHERE r.contenido = :contenido")
-    , @NamedQuery(name = "Referencia.findByPrecio", query = "SELECT r FROM Referencia r WHERE r.precio = :precio")})
+    , @NamedQuery(name = "Referencia.findByPrecio", query = "SELECT r FROM Referencia r WHERE r.precio = :precio")
+    , @NamedQuery(name = "Referencia.findByVinoid", query = "SELECT r FROM Referencia r WHERE r.vinoid = :vinoid")})
 public class Referencia implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -51,17 +47,21 @@ public class Referencia implements Serializable {
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "PRECIO")
     private Float precio;
-    @JoinColumn(name = "VINOID", referencedColumnName = "ID")
-    @ManyToOne(optional = false)
-    private Vino vinoid;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "peReferencia")
-    private Collection<Pedido> pedidoCollection;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "VINOID")
+    private int vinoid;
 
     public Referencia() {
     }
 
     public Referencia(Integer codigo) {
         this.codigo = codigo;
+    }
+
+    public Referencia(Integer codigo, int vinoid) {
+        this.codigo = codigo;
+        this.vinoid = vinoid;
     }
 
     public Integer getCodigo() {
@@ -96,21 +96,12 @@ public class Referencia implements Serializable {
         this.precio = precio;
     }
 
-    public Vino getVinoid() {
+    public int getVinoid() {
         return vinoid;
     }
 
-    public void setVinoid(Vino vinoid) {
+    public void setVinoid(int vinoid) {
         this.vinoid = vinoid;
-    }
-
-    @XmlTransient
-    public Collection<Pedido> getPedidoCollection() {
-        return pedidoCollection;
-    }
-
-    public void setPedidoCollection(Collection<Pedido> pedidoCollection) {
-        this.pedidoCollection = pedidoCollection;
     }
 
     @Override

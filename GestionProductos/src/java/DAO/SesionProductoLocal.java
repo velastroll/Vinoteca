@@ -7,7 +7,6 @@ package DAO;
 
 import Dominio.Preferencia;
 import Dominio.Referencia;
-import Dominio.Vino;
 import java.util.List;
 import javax.ejb.Local;
 

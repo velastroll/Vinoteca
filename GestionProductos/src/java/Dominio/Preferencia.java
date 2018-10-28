@@ -17,18 +17,21 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author Alvaro
+ * @author Mario Torbado
  */
 @Entity
 @Table(name = "PREFERENCIA")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Preferencia.findAll", query = "SELECT p FROM Preferencia p")
-    , @NamedQuery(name = "Preferencia.findById", query = "SELECT p FROM Preferencia p WHERE p.id = :id")})
+    , @NamedQuery(name = "Preferencia.findById", query = "SELECT p FROM Preferencia p WHERE p.id = :id")
+    , @NamedQuery(name = "Preferencia.findByNifabonado", query = "SELECT p FROM Preferencia p WHERE p.nifabonado = :nifabonado")})
 public class Preferencia implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -37,9 +40,11 @@ public class Preferencia implements Serializable {
     @Basic(optional = false)
     @Column(name = "ID")
     private Integer id;
-    @JoinColumn(name = "NIFABONADO", referencedColumnName = "AB_NIF")
-    @ManyToOne(optional = false)
-    private Abonado nifabonado;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 9)
+    @Column(name = "NIFABONADO")
+    private String nifabonado;
     @JoinColumn(name = "CATEGORIA", referencedColumnName = "CLAVE")
     @ManyToOne(optional = false)
     private Categoria categoria;
@@ -54,6 +59,11 @@ public class Preferencia implements Serializable {
         this.id = id;
     }
 
+    public Preferencia(Integer id, String nifabonado) {
+        this.id = id;
+        this.nifabonado = nifabonado;
+    }
+
     public Integer getId() {
         return id;
     }
@@ -62,11 +72,11 @@ public class Preferencia implements Serializable {
         this.id = id;
     }
 
-    public Abonado getNifabonado() {
+    public String getNifabonado() {
         return nifabonado;
     }
 
-    public void setNifabonado(Abonado nifabonado) {
+    public void setNifabonado(String nifabonado) {
         this.nifabonado = nifabonado;
     }
 

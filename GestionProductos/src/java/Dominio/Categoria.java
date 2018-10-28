@@ -23,7 +23,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Alvaro
+ * @author Mario Torbado
  */
 @Entity
 @Table(name = "CATEGORIA")
@@ -46,8 +46,6 @@ public class Categoria implements Serializable {
     private String nombre;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "categoria")
     private Collection<Preferencia> preferenciaCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "categoria")
-    private Collection<Vino> vinoCollection;
 
     public Categoria() {
     }
@@ -79,15 +77,6 @@ public class Categoria implements Serializable {
 
     public void setPreferenciaCollection(Collection<Preferencia> preferenciaCollection) {
         this.preferenciaCollection = preferenciaCollection;
-    }
-
-    @XmlTransient
-    public Collection<Vino> getVinoCollection() {
-        return vinoCollection;
-    }
-
-    public void setVinoCollection(Collection<Vino> vinoCollection) {
-        this.vinoCollection = vinoCollection;
     }
 
     @Override
