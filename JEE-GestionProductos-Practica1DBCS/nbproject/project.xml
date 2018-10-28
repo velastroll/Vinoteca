@@ -3,31 +3,19 @@
     <type>org.netbeans.modules.j2ee.earproject</type>
     <configuration>
         <data xmlns="http://www.netbeans.org/ns/j2ee-earproject/2">
-            <name>Practica1DBCS</name>
+            <name>JEE-GestionProductos-Practica1DBCS</name>
             <minimum-ant-version>1.6.5</minimum-ant-version>
             <web-module-libraries/>
             <web-module-additional-libraries>
                 <library>
-                    <file>${reference.Practica1DBCS-war.dist-ear}</file>
-                    <path-in-war>/</path-in-war>
-                </library>
-                <library>
-                    <file>${reference.GestionUsuarios.dist-ear}</file>
+                    <file>${reference.JEE-GestionProductos-Practica1DBCS-war.dist-ear}</file>
                     <path-in-war>/</path-in-war>
                 </library>
             </web-module-additional-libraries>
         </data>
         <references xmlns="http://www.netbeans.org/ns/ant-project-references/1">
             <reference>
-                <foreign-project>GestionUsuarios</foreign-project>
-                <artifact-type>j2ee_ear_archive</artifact-type>
-                <script>build.xml</script>
-                <target>dist-ear</target>
-                <clean-target>clean-ear</clean-target>
-                <id>dist-ear</id>
-            </reference>
-            <reference>
-                <foreign-project>Practica1DBCS-war</foreign-project>
+                <foreign-project>JEE-GestionProductos-Practica1DBCS-war</foreign-project>
                 <artifact-type>j2ee_ear_archive</artifact-type>
                 <script>build.xml</script>
                 <target>dist-ear</target>
