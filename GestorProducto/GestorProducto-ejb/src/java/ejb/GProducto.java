@@ -62,6 +62,4 @@ public class GProducto implements GProductoLocal {
     }
     
     
-    
-    
 }
