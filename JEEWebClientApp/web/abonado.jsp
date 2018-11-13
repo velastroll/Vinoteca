@@ -13,5 +13,18 @@
     </head>
     <body>
         <h1>Hello Abonado!</h1>
+        
+        <table>
+            <caption>Nuevo Pedido</caption>
+            <c:forEach items="${list}" var="item">
+                <tr>
+                    <td><c:out value="${item}" /></td>
+                    <button >comprar</button>
+                </tr>
+            </c:forEach>
+        </table>
+        <button>Continuar al carro</button>
+        <button>Cerrar sesion</button>
+        
     </body>
 </html>
