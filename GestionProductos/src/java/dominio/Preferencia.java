@@ -5,8 +5,6 @@
  */
 package dominio;
 
-import dominio.Categoria;
-import dominio.DenominacionOrigen;
 import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -32,19 +30,19 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Preferencia.findAll", query = "SELECT p FROM Preferencia p"),
     @NamedQuery(name = "Preferencia.findById", query = "SELECT p FROM Preferencia p WHERE p.id = :id")})
 public class Preferencia implements Serializable {
-    @JoinColumn(name = "NIFABONADO", referencedColumnName = "AB_NIF", nullable = false)
-    @ManyToOne(optional = false)
-    private Abonado nifabonado;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "ID", nullable = false)
+    @Column(name = "ID")
     private Integer id;
-    @JoinColumn(name = "CATEGORIA", referencedColumnName = "CLAVE", nullable = false)
+    @JoinColumn(name = "NIFABONADO", referencedColumnName = "AB_NIF")
+    @ManyToOne(optional = false)
+    private Abonado nifabonado;
+    @JoinColumn(name = "CATEGORIA", referencedColumnName = "CLAVE")
     @ManyToOne(optional = false)
     private Categoria categoria;
-    @JoinColumn(name = "IDDENOMINACION", referencedColumnName = "DO_ID", nullable = false)
+    @JoinColumn(name = "IDDENOMINACION", referencedColumnName = "DO_ID")
     @ManyToOne(optional = false)
     private DenominacionOrigen iddenominacion;
 
@@ -61,6 +59,14 @@ public class Preferencia implements Serializable {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public Abonado getNifabonado() {
+        return nifabonado;
+    }
+
+    public void setNifabonado(Abonado nifabonado) {
+        this.nifabonado = nifabonado;
     }
 
     public Categoria getCategoria() {
@@ -102,14 +108,6 @@ public class Preferencia implements Serializable {
     @Override
     public String toString() {
         return "dominio.Preferencia[ id=" + id + " ]";
-    }
-
-    public Abonado getNifabonado() {
-        return nifabonado;
-    }
-
-    public void setNifabonado(Abonado nifabonado) {
-        this.nifabonado = nifabonado;
     }
     
 }

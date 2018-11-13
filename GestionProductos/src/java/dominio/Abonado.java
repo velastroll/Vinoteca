@@ -35,8 +35,6 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Abonado.findByAbLogin", query = "SELECT a FROM Abonado a WHERE a.abLogin = :abLogin"),
     @NamedQuery(name = "Abonado.findByAbPasswd", query = "SELECT a FROM Abonado a WHERE a.abPasswd = :abPasswd")})
 public class Abonado implements Serializable {
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "nifabonado")
-    private Collection<Preferencia> preferenciaCollection;
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -47,6 +45,8 @@ public class Abonado implements Serializable {
     @Size(max = 8)
     @Column(name = "AB_PASSWD")
     private String abPasswd;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "nifabonado")
+    private Collection<Preferencia> preferenciaCollection;
     @JoinColumn(name = "AB_NIF", referencedColumnName = "NIF")
     @ManyToOne
     private Persona abNif;
@@ -72,6 +72,15 @@ public class Abonado implements Serializable {
 
     public void setAbPasswd(String abPasswd) {
         this.abPasswd = abPasswd;
+    }
+
+    @XmlTransient
+    public Collection<Preferencia> getPreferenciaCollection() {
+        return preferenciaCollection;
+    }
+
+    public void setPreferenciaCollection(Collection<Preferencia> preferenciaCollection) {
+        this.preferenciaCollection = preferenciaCollection;
     }
 
     public Persona getAbNif() {
@@ -105,15 +114,6 @@ public class Abonado implements Serializable {
     @Override
     public String toString() {
         return "dominio.Abonado[ abLogin=" + abLogin + " ]";
-    }
-
-    @XmlTransient
-    public Collection<Preferencia> getPreferenciaCollection() {
-        return preferenciaCollection;
-    }
-
-    public void setPreferenciaCollection(Collection<Preferencia> preferenciaCollection) {
-        this.preferenciaCollection = preferenciaCollection;
     }
     
 }

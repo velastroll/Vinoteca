@@ -38,10 +38,10 @@ public class Categoria implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 1)
-    @Column(name = "CLAVE", nullable = false, length = 1)
+    @Column(name = "CLAVE")
     private String clave;
     @Size(max = 20)
-    @Column(name = "NOMBRE", length = 20)
+    @Column(name = "NOMBRE")
     private String nombre;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "categoria")
     private Collection<Preferencia> preferenciaCollection;

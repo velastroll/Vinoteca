@@ -52,11 +52,14 @@ public class GestionUsuarios implements GestionUsuariosRemote {
     public boolean isPsswdOK(String login, String passwd, String tipoUser) {
         if (tipoUser.equalsIgnoreCase("abonado")) {
             Abonado a = abonadoFacade.find(login);
-            return a.getAbPasswd().equals(passwd);
+            if (a != null)
+                return a.getAbPasswd().equals(passwd);
         } else {
             Empleado e = empleadoFacade.find(login);
-            return e.getEmPasswd().equals(passwd);
+            if(e!=null)
+                return e.getEmPasswd().equals(passwd);
         }
+        return false;
     }
 
     @Override
