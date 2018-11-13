@@ -17,11 +17,9 @@ import javax.ejb.Remote;
  */
 @Remote
 public interface GestionProductosRemote {
-    
     List<Vino> getVinos(String categoria, String denOrigen);
-    
+        
     List<Referencia> getReferencias(int vinoId);
     
     List<Preferencia> getPreferencias(String login);
-    
 }

@@ -10,10 +10,8 @@ import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
-import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
+import javax.persistence.MappedSuperclass;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -25,23 +23,19 @@ import javax.xml.bind.annotation.XmlTransient;
  *
  * @author Alvaro
  */
-@Entity
+@MappedSuperclass
 @Table(name = "CATEGORIA")
 @XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "Categoria.findAll", query = "SELECT c FROM Categoria c"),
-    @NamedQuery(name = "Categoria.findByClave", query = "SELECT c FROM Categoria c WHERE c.clave = :clave"),
-    @NamedQuery(name = "Categoria.findByNombre", query = "SELECT c FROM Categoria c WHERE c.nombre = :nombre")})
 public class Categoria implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 1)
-    @Column(name = "CLAVE")
+    @Column(name = "CLAVE", nullable = false, length = 1)
     private String clave;
     @Size(max = 20)
-    @Column(name = "NOMBRE")
+    @Column(name = "NOMBRE", length = 20)
     private String nombre;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "categoria")
     private Collection<Preferencia> preferenciaCollection;

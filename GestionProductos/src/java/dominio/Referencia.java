@@ -8,14 +8,12 @@ package dominio;
 import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
-import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
+import javax.persistence.MappedSuperclass;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -23,30 +21,24 @@ import javax.xml.bind.annotation.XmlRootElement;
  *
  * @author Alvaro
  */
-@Entity
+@MappedSuperclass
 @Table(name = "REFERENCIA")
 @XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "Referencia.findAll", query = "SELECT r FROM Referencia r"),
-    @NamedQuery(name = "Referencia.findByCodigo", query = "SELECT r FROM Referencia r WHERE r.codigo = :codigo"),
-    @NamedQuery(name = "Referencia.findByEsporcajas", query = "SELECT r FROM Referencia r WHERE r.esporcajas = :esporcajas"),
-    @NamedQuery(name = "Referencia.findByContenido", query = "SELECT r FROM Referencia r WHERE r.contenido = :contenido"),
-    @NamedQuery(name = "Referencia.findByPrecio", query = "SELECT r FROM Referencia r WHERE r.precio = :precio")})
 public class Referencia implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "CODIGO")
+    @Column(name = "CODIGO", nullable = false)
     private Integer codigo;
     @Column(name = "ESPORCAJAS")
     private Character esporcajas;
     @Column(name = "CONTENIDO")
     private Short contenido;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
-    @Column(name = "PRECIO")
+    @Column(name = "PRECIO", precision = 23)
     private Float precio;
-    @JoinColumn(name = "VINOID", referencedColumnName = "ID")
+    @JoinColumn(name = "VINOID", referencedColumnName = "ID", nullable = false)
     @ManyToOne(optional = false)
     private Vino vinoid;
 

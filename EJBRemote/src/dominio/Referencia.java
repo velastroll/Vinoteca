@@ -37,16 +37,16 @@ public class Referencia implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "CODIGO", nullable = false)
+    @Column(name = "CODIGO")
     private Integer codigo;
     @Column(name = "ESPORCAJAS")
     private Character esporcajas;
     @Column(name = "CONTENIDO")
     private Short contenido;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
-    @Column(name = "PRECIO", precision = 23)
+    @Column(name = "PRECIO")
     private Float precio;
-    @JoinColumn(name = "VINOID", referencedColumnName = "ID", nullable = false)
+    @JoinColumn(name = "VINOID", referencedColumnName = "ID")
     @ManyToOne(optional = false)
     private Vino vinoid;
 

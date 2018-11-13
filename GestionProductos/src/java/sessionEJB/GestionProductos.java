@@ -21,16 +21,21 @@ import javax.ejb.Stateless;
  */
 @Stateless
 public class GestionProductos implements GestionProductosRemote {
+    
+    @EJB
+    private GestionUsuariosRemote gestionUsuarios;
+    
     @EJB
     private PreferenciaFacadeLocal preferenciaFacade;
     @EJB
     private VinoFacadeLocal vinoFacade;
-    
 
+    // Add business logic below. (Right-click in editor and choose
+    // "Insert Code > Add Business Method")
     @Override
-    public List<Vino> getVinos(String categoria, String denOrigen) {
+    public List<Vino> getVinos(String categoria, String denOrigen){
         List<Vino> wine = vinoFacade.findAll();
-        ArrayList<Vino> wineToReturn = new ArrayList();
+        List<Vino> wineToReturn = new ArrayList();
         String category, denOr;
         for (Vino w : wine) {
             category = w.getCategoria().toString();
@@ -49,16 +54,15 @@ public class GestionProductos implements GestionProductosRemote {
 
     @Override
     public List<Preferencia> getPreferencias(String login) {
+        String nif = gestionUsuarios.getNif(login);
         List<Preferencia> preferences = preferenciaFacade.findAll();
         List<Preferencia> prefToReturn = new ArrayList();
         for(Preferencia p: preferences){
-            String prefLogin = p.getNifabonado().getAbLogin();
-            if (prefLogin.equalsIgnoreCase(login))
+            String pNIF = p.getNifabonado().getAbNif().getNif();
+            if (nif.equalsIgnoreCase(pNIF))
                 prefToReturn.add(p);
         }
         return prefToReturn;
     }
 
-    // Add business logic below. (Right-click in editor and choose
-    // "Insert Code > Add Business Method")
 }

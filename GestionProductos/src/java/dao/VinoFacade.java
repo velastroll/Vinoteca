@@ -27,5 +27,18 @@ public class VinoFacade extends AbstractFacade<Vino> implements VinoFacadeLocal 
     public VinoFacade() {
         super(Vino.class);
     }
+        @Override
+    public void create(Vino entity){
+        getEntityManager().persist(entity);
+    }
+    
+    @Override
+    public void edit(Vino entity){
+        getEntityManager().merge(entity);
+    }
+    
+    public Vino find(Vino id){
+        return getEntityManager().find(Vino.class, id);
+    }
     
 }

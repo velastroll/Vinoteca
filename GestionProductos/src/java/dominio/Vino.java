@@ -10,14 +10,12 @@ import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
-import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
+import javax.persistence.MappedSuperclass;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
@@ -28,36 +26,31 @@ import javax.xml.bind.annotation.XmlTransient;
  *
  * @author Alvaro
  */
-@Entity
+@MappedSuperclass
 @Table(name = "VINO")
 @XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "Vino.findAll", query = "SELECT v FROM Vino v"),
-    @NamedQuery(name = "Vino.findById", query = "SELECT v FROM Vino v WHERE v.id = :id"),
-    @NamedQuery(name = "Vino.findByNombrecomercial", query = "SELECT v FROM Vino v WHERE v.nombrecomercial = :nombrecomercial"),
-    @NamedQuery(name = "Vino.findByComentario", query = "SELECT v FROM Vino v WHERE v.comentario = :comentario")})
 public class Vino implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "ID")
+    @Column(name = "ID", nullable = false)
     private Integer id;
     @Size(max = 50)
-    @Column(name = "NOMBRECOMERCIAL")
+    @Column(name = "NOMBRECOMERCIAL", length = 50)
     private String nombrecomercial;
     @Size(max = 200)
-    @Column(name = "COMENTARIO")
+    @Column(name = "COMENTARIO", length = 200)
     private String comentario;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "vinoid")
     private Collection<Referencia> referenciaCollection;
-    @JoinColumn(name = "IDBODEGA", referencedColumnName = "ID")
+    @JoinColumn(name = "IDBODEGA", referencedColumnName = "ID", nullable = false)
     @ManyToOne(optional = false)
     private Bodega idbodega;
-    @JoinColumn(name = "CATEGORIA", referencedColumnName = "CLAVE")
+    @JoinColumn(name = "CATEGORIA", referencedColumnName = "CLAVE", nullable = false)
     @ManyToOne(optional = false)
     private Categoria categoria;
-    @JoinColumn(name = "IDDENOMINACION", referencedColumnName = "DO_ID")
+    @JoinColumn(name = "IDDENOMINACION", referencedColumnName = "DO_ID", nullable = false)
     @ManyToOne(optional = false)
     private DenominacionOrigen iddenominacion;
 

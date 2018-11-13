@@ -38,10 +38,10 @@ public class DenominacionOrigen implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "DO_ID", nullable = false)
+    @Column(name = "DO_ID")
     private Integer doId;
     @Size(max = 20)
-    @Column(name = "NOMBRE", length = 20)
+    @Column(name = "NOMBRE")
     private String nombre;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "iddenominacion")
     private Collection<Preferencia> preferenciaCollection;

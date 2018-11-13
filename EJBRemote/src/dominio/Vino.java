@@ -5,9 +5,6 @@
  */
 package dominio;
 
-import dominio.Bodega;
-import dominio.Categoria;
-import dominio.DenominacionOrigen;
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Basic;
@@ -44,23 +41,23 @@ public class Vino implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "ID", nullable = false)
+    @Column(name = "ID")
     private Integer id;
     @Size(max = 50)
-    @Column(name = "NOMBRECOMERCIAL", length = 50)
+    @Column(name = "NOMBRECOMERCIAL")
     private String nombrecomercial;
     @Size(max = 200)
-    @Column(name = "COMENTARIO", length = 200)
+    @Column(name = "COMENTARIO")
     private String comentario;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "vinoid")
     private Collection<Referencia> referenciaCollection;
-    @JoinColumn(name = "IDBODEGA", referencedColumnName = "ID", nullable = false)
+    @JoinColumn(name = "IDBODEGA", referencedColumnName = "ID")
     @ManyToOne(optional = false)
     private Bodega idbodega;
-    @JoinColumn(name = "CATEGORIA", referencedColumnName = "CLAVE", nullable = false)
+    @JoinColumn(name = "CATEGORIA", referencedColumnName = "CLAVE")
     @ManyToOne(optional = false)
     private Categoria categoria;
-    @JoinColumn(name = "IDDENOMINACION", referencedColumnName = "DO_ID", nullable = false)
+    @JoinColumn(name = "IDDENOMINACION", referencedColumnName = "DO_ID")
     @ManyToOne(optional = false)
     private DenominacionOrigen iddenominacion;
 

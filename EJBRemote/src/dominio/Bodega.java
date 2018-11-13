@@ -40,16 +40,16 @@ public class Bodega implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "ID", nullable = false)
+    @Column(name = "ID")
     private Integer id;
     @Size(max = 50)
-    @Column(name = "NOMBRE", length = 50)
+    @Column(name = "NOMBRE")
     private String nombre;
     @Size(max = 9)
-    @Column(name = "CIF", length = 9)
+    @Column(name = "CIF")
     private String cif;
     @Size(max = 50)
-    @Column(name = "DIRECCION", length = 50)
+    @Column(name = "DIRECCION")
     private String direccion;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idbodega")
     private Collection<Vino> vinoCollection;

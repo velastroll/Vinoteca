@@ -12,6 +12,8 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -26,49 +28,50 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author Alvaro
  */
 @Entity
-@Table(name = "CATEGORIA")
+@Table(name = "ABONADO")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Categoria.findAll", query = "SELECT c FROM Categoria c"),
-    @NamedQuery(name = "Categoria.findByClave", query = "SELECT c FROM Categoria c WHERE c.clave = :clave"),
-    @NamedQuery(name = "Categoria.findByNombre", query = "SELECT c FROM Categoria c WHERE c.nombre = :nombre")})
-public class Categoria implements Serializable {
+    @NamedQuery(name = "Abonado.findAll", query = "SELECT a FROM Abonado a"),
+    @NamedQuery(name = "Abonado.findByAbLogin", query = "SELECT a FROM Abonado a WHERE a.abLogin = :abLogin"),
+    @NamedQuery(name = "Abonado.findByAbPasswd", query = "SELECT a FROM Abonado a WHERE a.abPasswd = :abPasswd")})
+public class Abonado implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 1)
-    @Column(name = "CLAVE")
-    private String clave;
-    @Size(max = 20)
-    @Column(name = "NOMBRE")
-    private String nombre;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "categoria")
+    @Size(min = 1, max = 20)
+    @Column(name = "AB_LOGIN")
+    private String abLogin;
+    @Size(max = 8)
+    @Column(name = "AB_PASSWD")
+    private String abPasswd;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "nifabonado")
     private Collection<Preferencia> preferenciaCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "categoria")
-    private Collection<Vino> vinoCollection;
+    @JoinColumn(name = "AB_NIF", referencedColumnName = "NIF")
+    @ManyToOne
+    private Persona abNif;
 
-    public Categoria() {
+    public Abonado() {
     }
 
-    public Categoria(String clave) {
-        this.clave = clave;
+    public Abonado(String abLogin) {
+        this.abLogin = abLogin;
     }
 
-    public String getClave() {
-        return clave;
+    public String getAbLogin() {
+        return abLogin;
     }
 
-    public void setClave(String clave) {
-        this.clave = clave;
+    public void setAbLogin(String abLogin) {
+        this.abLogin = abLogin;
     }
 
-    public String getNombre() {
-        return nombre;
+    public String getAbPasswd() {
+        return abPasswd;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setAbPasswd(String abPasswd) {
+        this.abPasswd = abPasswd;
     }
 
     @XmlTransient
@@ -80,30 +83,29 @@ public class Categoria implements Serializable {
         this.preferenciaCollection = preferenciaCollection;
     }
 
-    @XmlTransient
-    public Collection<Vino> getVinoCollection() {
-        return vinoCollection;
+    public Persona getAbNif() {
+        return abNif;
     }
 
-    public void setVinoCollection(Collection<Vino> vinoCollection) {
-        this.vinoCollection = vinoCollection;
+    public void setAbNif(Persona abNif) {
+        this.abNif = abNif;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (clave != null ? clave.hashCode() : 0);
+        hash += (abLogin != null ? abLogin.hashCode() : 0);
         return hash;
     }
 
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Categoria)) {
+        if (!(object instanceof Abonado)) {
             return false;
         }
-        Categoria other = (Categoria) object;
-        if ((this.clave == null && other.clave != null) || (this.clave != null && !this.clave.equals(other.clave))) {
+        Abonado other = (Abonado) object;
+        if ((this.abLogin == null && other.abLogin != null) || (this.abLogin != null && !this.abLogin.equals(other.abLogin))) {
             return false;
         }
         return true;
@@ -111,7 +113,7 @@ public class Categoria implements Serializable {
 
     @Override
     public String toString() {
-        return "dominio.Categoria[ clave=" + clave + " ]";
+        return "dominio.Abonado[ abLogin=" + abLogin + " ]";
     }
     
 }
