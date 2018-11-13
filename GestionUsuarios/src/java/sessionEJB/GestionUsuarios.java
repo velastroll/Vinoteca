@@ -84,6 +84,7 @@ public class GestionUsuarios implements GestionUsuariosRemote {
         a.setAbPasswd(passwd);
         a.setAbNif(p);
         try {
+            personaFacade.create(p);
             abonadoFacade.create(a);
             return true;
         } catch (Exception e) {
