@@ -16,22 +16,22 @@
             <classpath path="${libs.jaxws21.classpath}"/>
         </taskdef>
     </target>
-    <target name="wsimport-client-WSgProductos" depends="wsimport-init">
-        <mkdir dir="${build.generated.dir}/jax-wsCache/WSgProductos"/>
-        <property name="wsdl-WSgProductos" location="xml-resources/web-service-references/WSgProductos/wsdl/localhost_8080/JEEWebClientApp/WSgProductos.wsdl"/>
-        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/WSgProductos" destdir="${build.generated.dir}/jax-wsCache/WSgProductos" wsdl="${wsdl-WSgProductos}" catalog="catalog.xml" encoding="${source.encoding}" extension="true" verbose="true" fork="false" wsdlLocation="http://localhost:8080/JEEWebClientApp/WSgProductos?wsdl" xnocompile="true" xendorsed="true">
-            <depends file="${wsdl-WSgProductos}"/>
-            <produces dir="${build.generated.dir}/jax-wsCache/WSgProductos"/>
+    <target name="wsimport-client-WS_Productos" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/WS_Productos"/>
+        <property name="wsdl-WS_Productos" location="xml-resources/web-service-references/WS_Productos/wsdl/localhost_8080/WS_Productos/WS_Productos.wsdl"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/WS_Productos" destdir="${build.generated.dir}/jax-wsCache/WS_Productos" wsdl="${wsdl-WS_Productos}" catalog="catalog.xml" encoding="${source.encoding}" extension="true" verbose="true" fork="false" wsdlLocation="http://localhost:8080/WS_Productos/WS_Productos?wsdl" xnocompile="true" xendorsed="true" package="dominio">
+            <depends file="${wsdl-WS_Productos}"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/WS_Productos"/>
         </wsimport>
         <copy todir="${build.generated.sources.dir}/jax-ws">
-            <fileset dir="${build.generated.dir}/jax-wsCache/WSgProductos">
+            <fileset dir="${build.generated.dir}/jax-wsCache/WS_Productos">
                 <include name="**/*.java"/>
             </fileset>
         </copy>
     </target>
-    <target name="wsimport-client-clean-WSgProductos" depends="-init-project">
-        <delete dir="${build.generated.dir}/jax-wsCache/WSgProductos"/>
-        <delete dir="${build.generated.sources.dir}/jax-ws/ws"/>
+    <target name="wsimport-client-clean-WS_Productos" depends="-init-project">
+        <delete dir="${build.generated.dir}/jax-wsCache/WS_Productos"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/dominio"/>
     </target>
-    <target name="wsimport-client-generate" depends="wsimport-client-WSgProductos"/>
+    <target name="wsimport-client-generate" depends="wsimport-client-WS_Productos"/>
 </project>

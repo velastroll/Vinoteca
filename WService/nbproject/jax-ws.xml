@@ -2,10 +2,10 @@
 <jax-ws xmlns="http://www.netbeans.org/ns/jax-ws/1">
   <services/>
   <clients>
-    <client name="WSgProductos">
-      <wsdl-url>http://localhost:8080/JEEWebClientApp/WSgProductos?wsdl</wsdl-url>
-      <local-wsdl-file>localhost_8080/JEEWebClientApp/WSgProductos.wsdl</local-wsdl-file>
-      <package-name>ws</package-name>
+    <client name="WS_Productos">
+      <wsdl-url>http://localhost:8080/WS_Productos/WS_Productos?wsdl</wsdl-url>
+      <local-wsdl-file>localhost_8080/WS_Productos/WS_Productos.wsdl</local-wsdl-file>
+      <package-name forceReplace="true">dominio</package-name>
       <catalog-file>catalog.xml</catalog-file>
       <wsimport-options>
         <wsimport-option>
@@ -22,7 +22,7 @@
         </wsimport-option>
         <wsimport-option>
           <wsimport-option-name>wsdlLocation</wsimport-option-name>
-          <wsimport-option-value>http://localhost:8080/JEEWebClientApp/WSgProductos?wsdl</wsimport-option-value>
+          <wsimport-option-value>http://localhost:8080/WS_Productos/WS_Productos?wsdl</wsimport-option-value>
         </wsimport-option>
         <wsimport-option>
           <wsimport-option-name>xnocompile</wsimport-option-name>
@@ -31,6 +31,10 @@
         <wsimport-option>
           <wsimport-option-name>xendorsed</wsimport-option-name>
           <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>package</wsimport-option-name>
+          <wsimport-option-value>dominio</wsimport-option-value>
         </wsimport-option>
       </wsimport-options>
     </client>

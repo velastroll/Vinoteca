@@ -1,0 +1,136 @@
+<?xml version='1.0' encoding='UTF-8'?><!-- Published by JAX-WS RI (http://jax-ws.java.net). RI's version is Metro/2.3.1-b419 (branches/2.3.1.x-7937; 2014-08-04T08:11:03+0000) JAXWS-RI/2.2.10-b140803.1500 JAXWS-API/2.2.11 JAXB-RI/2.2.10-b140802.1033 JAXB-API/2.2.12-b140109.1041 svn-revision#unknown. --><xs:schema xmlns:tns="http://dominio/" xmlns:xs="http://www.w3.org/2001/XMLSchema" version="1.0" targetNamespace="http://dominio/">
+
+<xs:element name="abonado" type="tns:abonado"/>
+
+<xs:element name="bodega" type="tns:bodega"/>
+
+<xs:element name="categoria" type="tns:categoria"/>
+
+<xs:element name="denominacionOrigen" type="tns:denominacionOrigen"/>
+
+<xs:element name="getPreferencias" type="tns:getPreferencias"/>
+
+<xs:element name="getPreferenciasResponse" type="tns:getPreferenciasResponse"/>
+
+<xs:element name="getReferencias" type="tns:getReferencias"/>
+
+<xs:element name="getReferenciasResponse" type="tns:getReferenciasResponse"/>
+
+<xs:element name="getVinos" type="tns:getVinos"/>
+
+<xs:element name="getVinosResponse" type="tns:getVinosResponse"/>
+
+<xs:element name="persona" type="tns:persona"/>
+
+<xs:element name="preferencia" type="tns:preferencia"/>
+
+<xs:element name="referencia" type="tns:referencia"/>
+
+<xs:element name="vino" type="tns:vino"/>
+
+<xs:complexType name="getPreferencias">
+<xs:sequence>
+<xs:element name="login" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getPreferenciasResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:preferencia" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="preferencia">
+<xs:sequence>
+<xs:element name="categoria" type="tns:categoria" minOccurs="0"/>
+<xs:element name="id" type="xs:int" minOccurs="0"/>
+<xs:element name="iddenominacion" type="tns:denominacionOrigen" minOccurs="0"/>
+<xs:element name="nifabonado" type="tns:abonado" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="categoria">
+<xs:sequence>
+<xs:element name="clave" type="xs:string" minOccurs="0"/>
+<xs:element name="nombre" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="denominacionOrigen">
+<xs:sequence>
+<xs:element name="doId" type="xs:int" minOccurs="0"/>
+<xs:element name="nombre" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="abonado">
+<xs:sequence>
+<xs:element name="abLogin" type="xs:string" minOccurs="0"/>
+<xs:element name="abNif" type="tns:persona" minOccurs="0"/>
+<xs:element name="abPasswd" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="persona">
+<xs:sequence>
+<xs:element name="apellidos" type="xs:string" minOccurs="0"/>
+<xs:element name="nif" type="xs:string" minOccurs="0"/>
+<xs:element name="nombre" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getVinos">
+<xs:sequence>
+<xs:element name="categoria" type="xs:string" minOccurs="0"/>
+<xs:element name="denOrigen" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getVinosResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:vino" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="vino">
+<xs:sequence>
+<xs:element name="categoria" type="tns:categoria" minOccurs="0"/>
+<xs:element name="comentario" type="xs:string" minOccurs="0"/>
+<xs:element name="id" type="xs:int" minOccurs="0"/>
+<xs:element name="idbodega" type="tns:bodega" minOccurs="0"/>
+<xs:element name="iddenominacion" type="tns:denominacionOrigen" minOccurs="0"/>
+<xs:element name="nombrecomercial" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="bodega">
+<xs:sequence>
+<xs:element name="cif" type="xs:string" minOccurs="0"/>
+<xs:element name="direccion" type="xs:string" minOccurs="0"/>
+<xs:element name="id" type="xs:int" minOccurs="0"/>
+<xs:element name="nombre" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getReferencias">
+<xs:sequence>
+<xs:element name="vinoId" type="xs:int"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getReferenciasResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:referencia" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="referencia">
+<xs:sequence>
+<xs:element name="codigo" type="xs:int" minOccurs="0"/>
+<xs:element name="contenido" type="xs:short" minOccurs="0"/>
+<xs:element name="esporcajas" type="xs:unsignedShort" minOccurs="0"/>
+<xs:element name="precio" type="xs:float" minOccurs="0"/>
+<xs:element name="vinoid" type="tns:vino" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+</xs:schema>

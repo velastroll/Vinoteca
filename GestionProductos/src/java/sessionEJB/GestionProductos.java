@@ -34,10 +34,13 @@ public class GestionProductos implements GestionProductosRemote {
     public List<Vino> getVinos(String categoria, String denOrigen){
         List<Vino> wine = vinoFacade.findAll();
         List<Vino> wineToReturn = new ArrayList();
+        
+        System.out.println("INICIAL cat " + categoria + " denom " + denOrigen);
         String category, denOr;
         for (Vino w : wine) {
-            category = w.getCategoria().toString();
+            category = w.getCategoria().getClave();
             denOr = w.getIddenominacion().getNombre();
+            System.out.println("cat " + category + " denom " + denOr);
             if (category.equalsIgnoreCase(categoria) && denOr.equalsIgnoreCase(denOrigen))
                 wineToReturn.add(w);
         }

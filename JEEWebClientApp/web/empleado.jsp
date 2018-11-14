@@ -13,32 +13,5 @@
     </head>
     <body>
         <h1>Hello Empleado!</h1>
-        <%--
-        Gestionar Pedidos
-        - Crear webservice para pedidos y recuperarlos
-        --%>
-        
-        <table>
-            <caption>Gestion Pedidos</caption>
-            <c:forEach items="${list}" var="item">
-                <tr>
-                    <td><c:out value="${item}" /></td>
-                    <button >Modificar</button>
-                </tr>
-            </c:forEach>
-        </table>
-                
-         <table>
-            <caption>Gestion Usuarios</caption>
-            <c:forEach items="${list}" var="item">
-                <tr>
-                    <td><c:out value="${item}" /></td>
-                    <button >Eliminar</button>
-                </tr>
-            </c:forEach>
-        </table>
-        <button >Nuevo Usuario</button>
-        
-        
     </body>
 </html>
