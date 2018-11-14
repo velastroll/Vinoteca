@@ -9,8 +9,10 @@ import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.MappedSuperclass;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -22,22 +24,27 @@ import javax.xml.bind.annotation.XmlTransient;
  *
  * @author Alvaro
  */
-@MappedSuperclass
+@Entity
 @Table(name = "PERSONA")
 @XmlRootElement
+@NamedQueries({
+    @NamedQuery(name = "Persona.findAll", query = "SELECT p FROM Persona p"),
+    @NamedQuery(name = "Persona.findByNif", query = "SELECT p FROM Persona p WHERE p.nif = :nif"),
+    @NamedQuery(name = "Persona.findByNombre", query = "SELECT p FROM Persona p WHERE p.nombre = :nombre"),
+    @NamedQuery(name = "Persona.findByApellidos", query = "SELECT p FROM Persona p WHERE p.apellidos = :apellidos")})
 public class Persona implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 9)
-    @Column(name = "NIF", nullable = false, length = 9)
+    @Column(name = "NIF")
     private String nif;
     @Size(max = 20)
-    @Column(name = "NOMBRE", length = 20)
+    @Column(name = "NOMBRE")
     private String nombre;
     @Size(max = 20)
-    @Column(name = "APELLIDOS", length = 20)
+    @Column(name = "APELLIDOS")
     private String apellidos;
     @OneToMany(mappedBy = "abNif")
     private Collection<Abonado> abonadoCollection;

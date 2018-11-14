@@ -6,7 +6,6 @@
 package servlet;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -15,7 +14,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import sessionEJB.GestionUsuariosRemote;
+import sessionEJB.GUsuarioRemote;
 
 /**
  *
@@ -25,7 +24,9 @@ import sessionEJB.GestionUsuariosRemote;
 public class UserController extends HttpServlet {
     
     @EJB
-    private GestionUsuariosRemote gestionUsuarios;
+    private GUsuarioRemote gUsuario;
+    
+
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -50,7 +51,7 @@ public class UserController extends HttpServlet {
                 // Check if is Abonado
                 System.out.println("Caso 1");
                 login = request.getParameter("CheckAbonado");
-                result = gestionUsuarios.isAbonado(login);
+                result = gUsuario.isAbonado(login);
                 if(result)
                     session.setAttribute("msj", "WOW! It was saved as ABONADO");
                 else session.setAttribute("msj", "SORRY, I cannot find it in my database...");
@@ -58,7 +59,7 @@ public class UserController extends HttpServlet {
             case "2":
                 // Check if is Empleado
                 login = request.getParameter("CheckEmpleado");
-                result = gestionUsuarios.isEmpleado(login);
+                result = gUsuario.isEmpleado(login);
                 if(result)
                     session.setAttribute("msj", "Yeah! It was saved as EMPLEADO.");
                 else session.setAttribute("msj", "SORRY, I can't find it in my database...");
@@ -68,7 +69,7 @@ public class UserController extends HttpServlet {
                 login = request.getParameter("CredentialsLogin");
                 String psswd = request.getParameter("CredentialsPassword");
                 String type = request.getParameter("CredentialsType");
-                result = gestionUsuarios.isPsswdOK(login, psswd, type);
+                result = gUsuario.isPsswdOK(login, psswd, type);
                 if(result)
                     session.setAttribute("msj", "AMAZING! This was a good credentials.");
                 else session.setAttribute("msj", "Something was wrong...");
@@ -76,7 +77,7 @@ public class UserController extends HttpServlet {
             case "4":
                 // Get DNI by login
                 login = request.getParameter("getDNIByLogin");
-                String dni = gestionUsuarios.getNif(login);
+                String dni = gUsuario.getNif(login);
                 session.setAttribute("msj", dni);
                 break;
             case "5":
@@ -86,7 +87,7 @@ public class UserController extends HttpServlet {
                 String surname = request.getParameter("AbSurname");
                 login = request.getParameter("AbLogin");
                 String passwd = request.getParameter("AbPasswd");
-                result = gestionUsuarios.addAbonado(nif, name, surname, login, passwd);
+                result = gUsuario.addAbonado(nif, name, surname, login, passwd);
                 if(result)
                     session.setAttribute("msj", "Added successfuly.");
                 else session.setAttribute("msj", "I cannot added, sorry.");

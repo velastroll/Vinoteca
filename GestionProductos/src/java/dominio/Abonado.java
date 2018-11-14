@@ -10,10 +10,12 @@ import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.MappedSuperclass;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -25,19 +27,23 @@ import javax.xml.bind.annotation.XmlTransient;
  *
  * @author Alvaro
  */
-@MappedSuperclass
+@Entity
 @Table(name = "ABONADO")
 @XmlRootElement
+@NamedQueries({
+    @NamedQuery(name = "Abonado.findAll", query = "SELECT a FROM Abonado a"),
+    @NamedQuery(name = "Abonado.findByAbLogin", query = "SELECT a FROM Abonado a WHERE a.abLogin = :abLogin"),
+    @NamedQuery(name = "Abonado.findByAbPasswd", query = "SELECT a FROM Abonado a WHERE a.abPasswd = :abPasswd")})
 public class Abonado implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 20)
-    @Column(name = "AB_LOGIN", nullable = false, length = 20)
+    @Column(name = "AB_LOGIN")
     private String abLogin;
     @Size(max = 8)
-    @Column(name = "AB_PASSWD", length = 8)
+    @Column(name = "AB_PASSWD")
     private String abPasswd;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "nifabonado")
     private Collection<Preferencia> preferenciaCollection;

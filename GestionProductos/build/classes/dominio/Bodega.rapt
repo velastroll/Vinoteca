@@ -1,1 +1,8 @@
+dominio/Categoria_.java
+dominio/Preferencia_.java
+dominio/Abonado_.java
+dominio/DenominacionOrigen_.java
+dominio/Referencia_.java
 dominio/Bodega_.java
+dominio/Persona_.java
+dominio/Vino_.java

@@ -27,19 +27,5 @@ public class PreferenciaFacade extends AbstractFacade<Preferencia> implements Pr
     public PreferenciaFacade() {
         super(Preferencia.class);
     }
-        @Override
-    public void create(Preferencia entity){
-        getEntityManager().persist(entity);
-    }
-    
-    @Override
-    public void edit(Preferencia entity){
-        getEntityManager().merge(entity);
-    }
-    
-    @Override
-    public Preferencia find(Object id){
-        return getEntityManager().find(Preferencia.class, id);
-    }
     
 }

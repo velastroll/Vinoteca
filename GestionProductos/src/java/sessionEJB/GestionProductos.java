@@ -22,8 +22,6 @@ import javax.ejb.Stateless;
 @Stateless
 public class GestionProductos implements GestionProductosRemote {
     
-    @EJB
-    private GestionUsuariosRemote gestionUsuarios;
     
     @EJB
     private PreferenciaFacadeLocal preferenciaFacade;
@@ -54,12 +52,11 @@ public class GestionProductos implements GestionProductosRemote {
 
     @Override
     public List<Preferencia> getPreferencias(String login) {
-        String nif = gestionUsuarios.getNif(login);
         List<Preferencia> preferences = preferenciaFacade.findAll();
         List<Preferencia> prefToReturn = new ArrayList();
         for(Preferencia p: preferences){
-            String pNIF = p.getNifabonado().getAbNif().getNif();
-            if (nif.equalsIgnoreCase(pNIF))
+            String pLogin = p.getNifabonado().getAbLogin();
+            if (pLogin.equalsIgnoreCase(login))
                 prefToReturn.add(p);
         }
         return prefToReturn;

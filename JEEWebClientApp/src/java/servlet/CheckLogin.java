@@ -5,8 +5,9 @@
  */
 package servlet;
 
+import dominio.Preferencia;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -15,7 +16,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import sessionEJB.GestionUsuariosRemote;
+import sessionEJB.GUsuarioRemote;
+import sessionEJB.GestionProductosRemote;
+
 
 /**
  *
@@ -24,7 +27,10 @@ import sessionEJB.GestionUsuariosRemote;
 @WebServlet(name = "CheckLogin", urlPatterns = {"/CheckLogin"})
 public class CheckLogin extends HttpServlet {
     @EJB
-    private GestionUsuariosRemote gestionUsuarios;
+    private GestionProductosRemote gestionProductos;
+    
+    @EJB
+    private GUsuarioRemote gUsuario;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -44,12 +50,22 @@ public class CheckLogin extends HttpServlet {
         String password = (String) request.getParameter("password");
         String usertype = (String) request.getParameter("usertype");
         
-        boolean result = gestionUsuarios.isPsswdOK(login, password, usertype);
+        boolean result = gUsuario.isPsswdOK(login, password, usertype);
+        
+        String nif = gUsuario.getNif(login);
+        session.setAttribute("nif", nif);
+        session.setAttribute("login", login);
+        session.setAttribute("usertype", usertype);
         
         if (result) {
             if (usertype.equalsIgnoreCase("abonado")){
+                
                 RequestDispatcher dispatcher= getServletContext().getRequestDispatcher("/abonado.jsp");
                 dispatcher.forward(request, response);
+                System.out.println("preferenciasSize: " + gestionProductos.getPreferencias(login).size());
+                System.out.println("preferencias(0): " + gestionProductos.getPreferencias(login).get(0).getCategoria());
+                session.setAttribute("preferencias", (List<Preferencia>) gestionProductos.getPreferencias(login));
+                
             } else {
                 RequestDispatcher dispatcher= getServletContext().getRequestDispatcher("/empleado.jsp");
                 dispatcher.forward(request, response);

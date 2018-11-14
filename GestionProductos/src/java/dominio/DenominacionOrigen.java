@@ -10,10 +10,12 @@ import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.MappedSuperclass;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
@@ -24,18 +26,22 @@ import javax.xml.bind.annotation.XmlTransient;
  *
  * @author Alvaro
  */
-@MappedSuperclass
+@Entity
 @Table(name = "DENOMINACION_ORIGEN")
 @XmlRootElement
+@NamedQueries({
+    @NamedQuery(name = "DenominacionOrigen.findAll", query = "SELECT d FROM DenominacionOrigen d"),
+    @NamedQuery(name = "DenominacionOrigen.findByDoId", query = "SELECT d FROM DenominacionOrigen d WHERE d.doId = :doId"),
+    @NamedQuery(name = "DenominacionOrigen.findByNombre", query = "SELECT d FROM DenominacionOrigen d WHERE d.nombre = :nombre")})
 public class DenominacionOrigen implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "DO_ID", nullable = false)
+    @Column(name = "DO_ID")
     private Integer doId;
     @Size(max = 20)
-    @Column(name = "NOMBRE", length = 20)
+    @Column(name = "NOMBRE")
     private String nombre;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "iddenominacion")
     private Collection<Preferencia> preferenciaCollection;
