@@ -4,4 +4,6 @@
     <system systemId="http://localhost:8080/JEEWebClientApp/WSgProductos?xsd=1" uri="wsdl/localhost_8080/JEEWebClientApp/WSgProductos.xsd_1.xsd"/>
     <system systemId="http://localhost:8080/WS_Productos/WS_Productos?wsdl" uri="wsdl/localhost_8080/WS_Productos/WS_Productos.wsdl"/>
     <system systemId="http://localhost:8080/WS_Productos/WS_Productos?xsd=1" uri="wsdl/localhost_8080/WS_Productos/WS_Productos.xsd_1.xsd"/>
+    <system systemId="http://localhost:8080/WS_Pedidos/WS_Pedidos?wsdl" uri="wsdl/localhost_8080/WS_Pedidos/WS_Pedidos.wsdl"/>
+    <system systemId="http://localhost:8080/WS_Pedidos/WS_Pedidos?xsd=1" uri="wsdl/localhost_8080/WS_Pedidos/WS_Pedidos.xsd_1.xsd"/>
 </catalog>

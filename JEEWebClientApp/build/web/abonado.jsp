@@ -4,6 +4,8 @@
     Author     : Alvaro
 --%>
 
+<%@page import="dominio.Vino"%>
+<%@page import="sesion.CarroBeanRemote"%>
 <%@page import="dominio.Preferencia"%>
 <%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -42,8 +44,9 @@
                     for(dominio.Vino v: vinoList){
         %> 
         
-        <form method="post" action="addProduct">
-            <input  name="vino-id" value="<%=v.getId()%>" type="hidden"/>
+        <form method="post" action="AddProduct">
+            <input  name="vino-cat" value="<%=categoria%>" type="hidden"/>
+            <input  name="vino-denor" value="<%=denOrigen%>" type="hidden"/>
             <h4> Categoría: <%= categoria %> - Denominación de Origen: <%= denOrigen %></h4>
             <button type="submit"> Añadir al carrito </button>
         </form>
@@ -57,12 +60,31 @@
                 // TODO handle custom exceptions here
                 System.out.println("-- HEMOS PILLAO A UNA EXCEPCION --");
             }
-            
+ 
         %>
+        <h3> CARRO DE LA COMPRA: </h3>
+        <%
+            CarroBeanRemote cb = (CarroBeanRemote) session.getAttribute("carrobean");
+            
+            if (cb!=null) {
+                
+                List<Vino> vinetes = cb.getList();
+            
+                for(Vino v: vinetes){
+                    System.out.println(v.getId());
+                %>
+                
+                    <h4> <%= v.getNombrecomercial() %></h4>
+                
+                <%
+                }
+            }
+            
+            %>
 
 
         <table>
-            <caption>Nuevo Pedido</caption>
+            <caption>Carro</caption>
             <c:forEach items="${list}" var="item">
                 <tr>
                     <td><c:out value="${item}" /></td>
@@ -72,6 +94,7 @@
         </table>
         <button>Continuar al carro</button>
         <button>Cerrar sesion</button>
+
 
     </body>
 </html>

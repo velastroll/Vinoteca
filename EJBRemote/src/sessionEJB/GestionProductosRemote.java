@@ -23,4 +23,6 @@ public interface GestionProductosRemote {
     List<Referencia> getReferencias(int vinoId);
     
     List<Preferencia> getPreferencias(String login);
+
+    public Vino getVino(int id);
 }

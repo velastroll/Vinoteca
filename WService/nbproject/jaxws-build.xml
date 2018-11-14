@@ -33,5 +33,22 @@
         <delete dir="${build.generated.dir}/jax-wsCache/WS_Productos"/>
         <delete dir="${build.generated.sources.dir}/jax-ws/dominio"/>
     </target>
-    <target name="wsimport-client-generate" depends="wsimport-client-WS_Productos"/>
+    <target name="wsimport-client-WS_Pedidos" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/WS_Pedidos"/>
+        <property name="wsdl-WS_Pedidos" location="xml-resources/web-service-references/WS_Pedidos/wsdl/localhost_8080/WS_Pedidos/WS_Pedidos.wsdl"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/WS_Pedidos" destdir="${build.generated.dir}/jax-wsCache/WS_Pedidos" wsdl="${wsdl-WS_Pedidos}" catalog="catalog.xml" encoding="${source.encoding}" extension="true" verbose="true" fork="false" wsdlLocation="http://localhost:8080/WS_Pedidos/WS_Pedidos?wsdl" xnocompile="true" xendorsed="true" package="dominio">
+            <depends file="${wsdl-WS_Pedidos}"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/WS_Pedidos"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/WS_Pedidos">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="wsimport-client-clean-WS_Pedidos" depends="-init-project">
+        <delete dir="${build.generated.dir}/jax-wsCache/WS_Pedidos"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/dominio"/>
+    </target>
+    <target name="wsimport-client-generate" depends="wsimport-client-WS_Productos, wsimport-client-WS_Pedidos"/>
 </project>

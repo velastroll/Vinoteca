@@ -64,5 +64,14 @@ public class GestionProductos implements GestionProductosRemote {
         }
         return prefToReturn;
     }
+    
+    public Vino getVino(int id){
+        List<Vino> vs = vinoFacade.findAll();
+        for (Vino v : vs) {
+            if (v.getId() == id)
+                return v;
+        }
+        return null;
+    }
 
 }

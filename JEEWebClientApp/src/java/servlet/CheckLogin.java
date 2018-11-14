@@ -8,7 +8,12 @@ package servlet;
 import dominio.Preferencia;
 import java.io.IOException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -16,6 +21,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import sesion.CarroBeanRemote;
 import sessionEJB.GUsuarioRemote;
 import sessionEJB.GestionProductosRemote;
 
@@ -26,6 +32,7 @@ import sessionEJB.GestionProductosRemote;
  */
 @WebServlet(name = "CheckLogin", urlPatterns = {"/CheckLogin"})
 public class CheckLogin extends HttpServlet {
+    
     @EJB
     private GestionProductosRemote gestionProductos;
     
@@ -50,21 +57,25 @@ public class CheckLogin extends HttpServlet {
         String password = (String) request.getParameter("password");
         String usertype = (String) request.getParameter("usertype");
         
+        System.out.println("--- llegó");
         boolean result = gUsuario.isPsswdOK(login, password, usertype);
         
+        System.out.println("-----llegó");
         String nif = gUsuario.getNif(login);
+        
         session.setAttribute("nif", nif);
         session.setAttribute("login", login);
         session.setAttribute("usertype", usertype);
+        System.out.println(" ---------llegó");
         
         if (result) {
             if (usertype.equalsIgnoreCase("abonado")){
                 
+                CarroBeanRemote carroBean = lookupCarroBeanRemote();
+                session.setAttribute("carrobean", carroBean);
+                
                 RequestDispatcher dispatcher= getServletContext().getRequestDispatcher("/abonado.jsp");
                 dispatcher.forward(request, response);
-                System.out.println("preferenciasSize: " + gestionProductos.getPreferencias(login).size());
-                System.out.println("preferencias(0): " + gestionProductos.getPreferencias(login).get(0).getCategoria());
-                session.setAttribute("preferencias", (List<Preferencia>) gestionProductos.getPreferencias(login));
                 
             } else {
                 RequestDispatcher dispatcher= getServletContext().getRequestDispatcher("/empleado.jsp");
@@ -115,5 +126,15 @@ public class CheckLogin extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
+    private CarroBeanRemote lookupCarroBeanRemote() {
+        try {
+            Context c = new InitialContext();
+            return (CarroBeanRemote) c.lookup("java:global/CarroCompra/CarroBean!sesion.CarroBeanRemote");
+        } catch (NamingException ne) {
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
+            throw new RuntimeException(ne);
+        }
+    }
 
 }
